@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursed Rust + JS interactions Demo</title>
+
+    <style>
+        body,
+        button {
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-family: courier;
+        }
+
+        button {
+            border: none;
+            box-shadow: 0px 0px 4px white;
+            height: 100px;
+            width: 200px;
+            font-size: 20px;
+            line-height: 20px;
+            padding: 15px;
+            margin: 15px;
+        }
+
+        button:hover {
+            box-shadow: 0px 0px 10px white;
+            background-color: #383838;
+        }
+
+        div#buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        div#screen {
+            width: 61%;
+            margin: auto;
+            background-color: #383838;
+            font-size: 32px;
+        }
+
+        div#previous-results {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+        }
+
+        .small {
+            font-size: 14px;
+            margin: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Cursed Rust + JS interactions Demo</h1>
+    <div id="screen">
+        <p>Human Score:</p>
+        <p id="human-score">0.0</p>
+        <p id="bot-result">No data yet</p>
+        <p class="small">Previous results:</p>
+        <div id="previous-results"></div>
+    </div>
+    <p>Move your mouse to generate events.</p>
+    <p>Events generated:</p>
+    <p id="counter">0</p>
+    <script src="./main.js" type="module"></script>
+
+    <div id="buttons">
+        <button id="button1">Am I Bot?</button>
+        <button id="button4">Save Result</button>
+        <button id="button2">Jitter of last 100</button>
+        <button id="button3">Show last event</button>
+    </div>
+</body>
+
+</html>
