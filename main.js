@@ -29,13 +29,16 @@ function update() {
         previousResultsElement.appendChild(div);
     }
 
+    let events = detection.events();
+
     requestAnimationFrame(update);
 }
 requestAnimationFrame(update);
 
 window.onmousemove = (event) => {
     detection.addEvent(Date.now(), event);
-    allEvents = detection.events;
+   // allEvents = detection.events(0,detection.num_events-1);
+    allEvents = detection.events(0,1);
     counterElement.innerText = `${allEvents.length}`;
 };
 

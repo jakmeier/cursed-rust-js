@@ -1,5 +1,5 @@
 # Set target dir to default if not set in env
-CARGO_TARGET_DIR ?= ../target
+CARGO_TARGET_DIR ?= ./target
 
 all: build start
 

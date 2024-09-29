@@ -72,9 +72,12 @@ impl MyRoboDetection {
         self.saved_results.push(result.clone());
     }
 
-    #[wasm_bindgen(getter)]
-    pub fn events(&self) -> Vec<Event> {
-        self.events.clone()
+    pub fn events(&self, start: usize, end: usize) -> Vec<Event> {
+        self.events[start..end].to_vec()
+    }
+
+    pub fn num_events(&self) -> usize {
+        self.events.len()
     }
 
     #[wasm_bindgen(getter)]
