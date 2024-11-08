@@ -4,8 +4,20 @@ use wasm_bindgen::prelude::wasm_bindgen;
 use wasm_bindgen::JsValue;
 
 mod jitter;
+// BUG 0
 // Without this, println doesn't work,
 mod web_utils;
+
+// BUG 3
+// Silent overflow
+// pub type Timestamp = u32;
+
+// BUG 3.1
+// can't convert 1731071638989 to BigInt
+// pub type Timestamp = u64;
+
+// JS number only converts cleanly to f64
+pub type Timestamp = f64;
 
 #[wasm_bindgen]
 pub struct MyRoboDetection {
@@ -18,7 +30,13 @@ pub struct MyRoboDetection {
 #[derive(Debug, Clone)]
 #[wasm_bindgen]
 pub struct Event {
-    pub timestamp: u32,
+    pub timestamp: Timestamp,
+    pub coordinate: Coordinate,
+}
+
+#[derive(Debug, Clone, Copy)]
+#[wasm_bindgen]
+pub struct Coordinate {
     pub x: i32,
     pub y: i32,
 }
@@ -29,6 +47,7 @@ pub struct RoboDetectionOutput {
     pub jitter: f32,
     #[wasm_bindgen(js_name = humanScore)]
     pub human_score: f32,
+    pub timestamp: Timestamp,
     result_text: String,
 }
 
@@ -51,11 +70,17 @@ impl MyRoboDetection {
     }
 
     #[wasm_bindgen(js_name = addEvent)]
-    pub fn add_event(&mut self, timestamp: u32, event: web_sys::MouseEvent) -> Result<(), JsValue> {
+    pub fn add_event(
+        &mut self,
+        timestamp: Timestamp,
+        event: web_sys::MouseEvent,
+    ) -> Result<(), JsValue> {
         let new_event = Event {
             timestamp,
-            x: event.client_x(),
-            y: event.client_y(),
+            coordinate: Coordinate {
+                x: event.client_x(),
+                y: event.client_y(),
+            },
         };
         // println!("got {new_event:?}");
         self.events.push(new_event);
@@ -70,6 +95,11 @@ impl MyRoboDetection {
     #[wasm_bindgen(js_name = saveBorrowedResult)]
     pub fn save_borrowed_result(&mut self, result: &RoboDetectionOutput) {
         self.saved_results.push(result.clone());
+    }
+
+    #[wasm_bindgen(js_name = allEvents)]
+    pub fn all_events(self) -> Vec<Event> {
+        self.events
     }
 
     pub fn events(&self, start: usize, end: usize) -> Vec<Event> {
@@ -90,7 +120,9 @@ impl MyRoboDetection {
         let jitter = self.jitter();
         let human_score = (jitter / 1000.0).min(1.0);
         let result_text = if human_score < 0.5 { "Robot" } else { "Human" }.to_owned();
+        let timestamp = self.events.last().map(|e| e.timestamp).unwrap_or_default();
         RoboDetectionOutput {
+            timestamp,
             jitter,
             human_score,
             result_text,
@@ -102,5 +134,13 @@ impl MyRoboDetection {
 impl RoboDetectionOutput {
     pub fn text(&self) -> String {
         self.result_text.clone()
+    }
+}
+
+#[wasm_bindgen]
+impl Coordinate {
+    #[wasm_bindgen(constructor)]
+    pub fn new(x: i32, y: i32) -> Self {
+        Self { x, y }
     }
 }
