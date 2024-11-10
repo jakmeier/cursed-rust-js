@@ -269,18 +269,18 @@ export class MyBotDetection {
         }
     }
     /**
-     * @param {RoboDetectionOutput} result
+     * @param {BotDetectionOutput} result
      */
     saveResult(result) {
-        _assertClass(result, RoboDetectionOutput);
+        _assertClass(result, BotDetectionOutput);
         var ptr0 = result.__destroy_into_raw();
         wasm.myrobodetection_saveResult(this.__wbg_ptr, ptr0);
     }
     /**
-     * @param {RoboDetectionOutput} result
+     * @param {BotDetectionOutput} result
      */
     saveBorrowedResult(result) {
-        _assertClass(result, RoboDetectionOutput);
+        _assertClass(result, BotDetectionOutput);
         wasm.myrobodetection_saveBorrowedResult(this.__wbg_ptr, result.__wbg_ptr);
     }
     /**
@@ -326,7 +326,7 @@ export class MyBotDetection {
         return ret >>> 0;
     }
     /**
-     * @returns {(RoboDetectionOutput)[]}
+     * @returns {(BotDetectionOutput)[]}
      */
     get results() {
         try {
@@ -342,32 +342,32 @@ export class MyBotDetection {
         }
     }
     /**
-     * @returns {RoboDetectionOutput}
+     * @returns {BotDetectionOutput}
      */
     isBot() {
         const ret = wasm.myrobodetection_isBot(this.__wbg_ptr);
-        return RoboDetectionOutput.__wrap(ret);
+        return BotDetectionOutput.__wrap(ret);
     }
 }
 
-const RoboDetectionOutputFinalization = (typeof FinalizationRegistry === 'undefined')
+const BotDetectionOutputFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
     : new FinalizationRegistry(ptr => wasm.__wbg_robodetectionoutput_free(ptr >>> 0, 1));
 
-export class RoboDetectionOutput {
+export class BotDetectionOutput {
 
     static __wrap(ptr) {
         ptr = ptr >>> 0;
-        const obj = Object.create(RoboDetectionOutput.prototype);
+        const obj = Object.create(BotDetectionOutput.prototype);
         obj.__wbg_ptr = ptr;
-        RoboDetectionOutputFinalization.register(obj, obj.__wbg_ptr, obj);
+        BotDetectionOutputFinalization.register(obj, obj.__wbg_ptr, obj);
         return obj;
     }
 
     __destroy_into_raw() {
         const ptr = this.__wbg_ptr;
         this.__wbg_ptr = 0;
-        RoboDetectionOutputFinalization.unregister(this);
+        BotDetectionOutputFinalization.unregister(this);
         return ptr;
     }
 
@@ -474,7 +474,7 @@ function __wbg_get_imports() {
         return addHeapObject(ret);
     };
     imports.wbg.__wbg_robodetectionoutput_new = function(arg0) {
-        const ret = RoboDetectionOutput.__wrap(arg0);
+        const ret = BotDetectionOutput.__wrap(arg0);
         return addHeapObject(ret);
     };
     imports.wbg.__wbindgen_object_drop_ref = function(arg0) {

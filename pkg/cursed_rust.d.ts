@@ -29,13 +29,13 @@ export class MyBotDetection {
    */
   addEvent(timestamp: number, event: MouseEvent): void;
   /**
-   * @param {RoboDetectionOutput} result
+   * @param {BotDetectionOutput} result
    */
-  saveResult(result: RoboDetectionOutput): void;
+  saveResult(result: BotDetectionOutput): void;
   /**
-   * @param {RoboDetectionOutput} result
+   * @param {BotDetectionOutput} result
    */
-  saveBorrowedResult(result: RoboDetectionOutput): void;
+  saveBorrowedResult(result: BotDetectionOutput): void;
   /**
    * @returns {(Event)[]}
    */
@@ -51,12 +51,12 @@ export class MyBotDetection {
    */
   num_events(): number;
   /**
-   * @returns {RoboDetectionOutput}
+   * @returns {BotDetectionOutput}
    */
-  isBot(): RoboDetectionOutput;
-  readonly results: (RoboDetectionOutput)[];
+  isBot(): BotDetectionOutput;
+  readonly results: (BotDetectionOutput)[];
 }
-export class RoboDetectionOutput {
+export class BotDetectionOutput {
   free(): void;
   /**
    * @returns {string}

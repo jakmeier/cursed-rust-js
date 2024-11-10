@@ -7,7 +7,7 @@ let detection = new MyBotDetection();
 // Other state
 /** @type { import("./pkg/cursed_rust.js").Event[] } */
 let allEvents = [];
-/** @type { RoboDetectionOutput | null } */
+/** @type { BotDetectionOutput | null } */
 let latestResult = null;
 
 // DOM references

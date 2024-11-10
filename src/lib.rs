@@ -24,7 +24,7 @@ pub struct MyBotDetection {
     // all detected events
     events: Vec<Event>,
     // isBot() results that were explicitly saved
-    saved_results: Vec<RoboDetectionOutput>,
+    saved_results: Vec<BotDetectionOutput>,
 }
 
 #[derive(Debug, Clone)]
@@ -43,7 +43,7 @@ pub struct Coordinate {
 
 #[derive(Debug, Clone)]
 #[wasm_bindgen]
-pub struct RoboDetectionOutput {
+pub struct BotDetectionOutput {
     pub jitter: f32,
     #[wasm_bindgen(js_name = humanScore)]
     pub human_score: f32,
@@ -88,12 +88,12 @@ impl MyBotDetection {
     }
 
     #[wasm_bindgen(js_name = saveResult)]
-    pub fn save_result(&mut self, result: RoboDetectionOutput) {
+    pub fn save_result(&mut self, result: BotDetectionOutput) {
         self.saved_results.push(result);
     }
 
     #[wasm_bindgen(js_name = saveBorrowedResult)]
-    pub fn save_borrowed_result(&mut self, result: &RoboDetectionOutput) {
+    pub fn save_borrowed_result(&mut self, result: &BotDetectionOutput) {
         self.saved_results.push(result.clone());
     }
 
@@ -111,17 +111,17 @@ impl MyBotDetection {
     }
 
     #[wasm_bindgen(getter)]
-    pub fn results(&self) -> Vec<RoboDetectionOutput> {
+    pub fn results(&self) -> Vec<BotDetectionOutput> {
         self.saved_results.clone()
     }
 
     #[wasm_bindgen(js_name = isBot)]
-    pub fn is_bot(&self) -> RoboDetectionOutput {
+    pub fn is_bot(&self) -> BotDetectionOutput {
         let jitter = self.jitter();
         let human_score = (jitter / 1000.0).min(1.0);
         let result_text = if human_score < 0.5 { "Robot" } else { "Human" }.to_owned();
         let timestamp = self.events.last().map(|e| e.timestamp).unwrap_or_default();
-        RoboDetectionOutput {
+        BotDetectionOutput {
             timestamp,
             jitter,
             human_score,
@@ -131,7 +131,7 @@ impl MyBotDetection {
 }
 
 #[wasm_bindgen]
-impl RoboDetectionOutput {
+impl BotDetectionOutput {
     pub fn text(&self) -> String {
         self.result_text.clone()
     }
