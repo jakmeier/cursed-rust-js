@@ -20,7 +20,7 @@ mod web_utils;
 pub type Timestamp = f64;
 
 #[wasm_bindgen]
-pub struct MyRoboDetection {
+pub struct MyBotDetection {
     // all detected events
     events: Vec<Event>,
     // isBot() results that were explicitly saved
@@ -52,7 +52,7 @@ pub struct RoboDetectionOutput {
 }
 
 #[wasm_bindgen]
-impl MyRoboDetection {
+impl MyBotDetection {
     #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
         Self {

@@ -15,14 +15,14 @@ export class Event {
   coordinate: Coordinate;
   timestamp: number;
 }
-export class MyRoboDetection {
+export class MyBotDetection {
   free(): void;
   constructor();
   /**
    * @param {(Event)[]} events
-   * @returns {MyRoboDetection}
+   * @returns {MyBotDetection}
    */
-  static fromEvents(events: (Event)[]): MyRoboDetection;
+  static fromEvents(events: (Event)[]): MyBotDetection;
   /**
    * @param {number} timestamp
    * @param {MouseEvent} event

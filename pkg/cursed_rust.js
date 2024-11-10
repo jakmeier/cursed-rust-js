@@ -210,24 +210,24 @@ export class Event {
     }
 }
 
-const MyRoboDetectionFinalization = (typeof FinalizationRegistry === 'undefined')
+const MyBotDetectionFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
     : new FinalizationRegistry(ptr => wasm.__wbg_myrobodetection_free(ptr >>> 0, 1));
 
-export class MyRoboDetection {
+export class MyBotDetection {
 
     static __wrap(ptr) {
         ptr = ptr >>> 0;
-        const obj = Object.create(MyRoboDetection.prototype);
+        const obj = Object.create(MyBotDetection.prototype);
         obj.__wbg_ptr = ptr;
-        MyRoboDetectionFinalization.register(obj, obj.__wbg_ptr, obj);
+        MyBotDetectionFinalization.register(obj, obj.__wbg_ptr, obj);
         return obj;
     }
 
     __destroy_into_raw() {
         const ptr = this.__wbg_ptr;
         this.__wbg_ptr = 0;
-        MyRoboDetectionFinalization.unregister(this);
+        MyBotDetectionFinalization.unregister(this);
         return ptr;
     }
 
@@ -238,18 +238,18 @@ export class MyRoboDetection {
     constructor() {
         const ret = wasm.myrobodetection_new();
         this.__wbg_ptr = ret >>> 0;
-        MyRoboDetectionFinalization.register(this, this.__wbg_ptr, this);
+        MyBotDetectionFinalization.register(this, this.__wbg_ptr, this);
         return this;
     }
     /**
      * @param {(Event)[]} events
-     * @returns {MyRoboDetection}
+     * @returns {MyBotDetection}
      */
     static fromEvents(events) {
         const ptr0 = passArrayJsValueToWasm0(events, wasm.__wbindgen_export_0);
         const len0 = WASM_VECTOR_LEN;
         const ret = wasm.myrobodetection_fromEvents(ptr0, len0);
-        return MyRoboDetection.__wrap(ret);
+        return MyBotDetection.__wrap(ret);
     }
     /**
      * @param {number} timestamp

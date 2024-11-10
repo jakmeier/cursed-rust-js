@@ -1,9 +1,9 @@
-import init, { Coordinate, MyRoboDetection } from "./pkg/cursed_rust.js"
+import init, { Coordinate, MyBotDetection } from "./pkg/cursed_rust.js"
 
 await init();
 
 // Create a Rust object
-let detection = new MyRoboDetection();
+let detection = new MyBotDetection();
 // Other state
 /** @type { import("./pkg/cursed_rust.js").Event[] } */
 let allEvents = [];
@@ -110,7 +110,7 @@ function printWindowedJitter() {
     //     console.log(el, el.coordinate.x, el.coordinate.y);
     // }
 
-    const tmp = MyRoboDetection.fromEvents(window);
+    const tmp = MyBotDetection.fromEvents(window);
     console.log("Jitter of last", windowSize, "events was", tmp.isBot().jitter);
     debugInfo.innerText = tmp.isBot().jitter.toFixed(3);
 }

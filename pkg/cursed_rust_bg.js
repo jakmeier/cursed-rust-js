@@ -44,17 +44,17 @@ function getStringFromWasm0(ptr, len) {
     return cachedTextDecoder.decode(getUint8ArrayMemory0().subarray(ptr, ptr + len));
 }
 
-const MyRoboDetectionFinalization = (typeof FinalizationRegistry === 'undefined')
+const MyBotDetectionFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
     : new FinalizationRegistry(ptr => wasm.__wbg_myrobodetection_free(ptr >>> 0, 1));
 /**
 */
-export class MyRoboDetection {
+export class MyBotDetection {
 
     __destroy_into_raw() {
         const ptr = this.__wbg_ptr;
         this.__wbg_ptr = 0;
-        MyRoboDetectionFinalization.unregister(this);
+        MyBotDetectionFinalization.unregister(this);
         return ptr;
     }
 

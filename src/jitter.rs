@@ -1,6 +1,6 @@
-use crate::MyRoboDetection;
+use crate::MyBotDetection;
 
-impl MyRoboDetection {
+impl MyBotDetection {
     pub(crate) fn jitter(&self) -> f32 {
         // just for demonstration, compute the variance of 2D differences
         // between two events
