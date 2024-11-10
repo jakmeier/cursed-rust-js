@@ -1,5 +1,14 @@
 /* tslint:disable */
 /* eslint-disable */
+export class BotDetectionOutput {
+  free(): void;
+  /**
+   * @returns {string}
+   */
+  text(): string;
+  humanScore: number;
+  timestamp: number;
+}
 export class Coordinate {
   free(): void;
   /**
@@ -56,25 +65,13 @@ export class MyBotDetection {
   isBot(): BotDetectionOutput;
   readonly results: (BotDetectionOutput)[];
 }
-export class BotDetectionOutput {
-  free(): void;
-  /**
-   * @returns {string}
-   */
-  text(): string;
-  humanScore: number;
-  jitter: number;
-  timestamp: number;
-}
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
 export interface InitOutput {
   readonly memory: WebAssembly.Memory;
-  readonly __wbg_myrobodetection_free: (a: number, b: number) => void;
+  readonly __wbg_mybotdetection_free: (a: number, b: number) => void;
   readonly __wbg_event_free: (a: number, b: number) => void;
-  readonly __wbg_get_event_timestamp: (a: number) => number;
-  readonly __wbg_set_event_timestamp: (a: number, b: number) => void;
   readonly __wbg_get_event_coordinate: (a: number) => number;
   readonly __wbg_set_event_coordinate: (a: number, b: number) => void;
   readonly __wbg_coordinate_free: (a: number, b: number) => void;
@@ -82,25 +79,25 @@ export interface InitOutput {
   readonly __wbg_set_coordinate_x: (a: number, b: number) => void;
   readonly __wbg_get_coordinate_y: (a: number) => number;
   readonly __wbg_set_coordinate_y: (a: number, b: number) => void;
-  readonly __wbg_robodetectionoutput_free: (a: number, b: number) => void;
-  readonly __wbg_get_robodetectionoutput_jitter: (a: number) => number;
-  readonly __wbg_set_robodetectionoutput_jitter: (a: number, b: number) => void;
-  readonly __wbg_get_robodetectionoutput_humanScore: (a: number) => number;
-  readonly __wbg_set_robodetectionoutput_humanScore: (a: number, b: number) => void;
-  readonly myrobodetection_new: () => number;
-  readonly myrobodetection_fromEvents: (a: number, b: number) => number;
-  readonly myrobodetection_addEvent: (a: number, b: number, c: number, d: number) => void;
-  readonly myrobodetection_saveResult: (a: number, b: number) => void;
-  readonly myrobodetection_saveBorrowedResult: (a: number, b: number) => void;
-  readonly myrobodetection_allEvents: (a: number, b: number) => void;
-  readonly myrobodetection_events: (a: number, b: number, c: number, d: number) => void;
-  readonly myrobodetection_num_events: (a: number) => number;
-  readonly myrobodetection_results: (a: number, b: number) => void;
-  readonly myrobodetection_isBot: (a: number) => number;
-  readonly robodetectionoutput_text: (a: number, b: number) => void;
+  readonly __wbg_botdetectionoutput_free: (a: number, b: number) => void;
+  readonly __wbg_get_botdetectionoutput_humanScore: (a: number) => number;
+  readonly __wbg_set_botdetectionoutput_humanScore: (a: number, b: number) => void;
+  readonly __wbg_get_botdetectionoutput_timestamp: (a: number) => number;
+  readonly __wbg_set_botdetectionoutput_timestamp: (a: number, b: number) => void;
+  readonly mybotdetection_new: () => number;
+  readonly mybotdetection_fromEvents: (a: number, b: number) => number;
+  readonly mybotdetection_addEvent: (a: number, b: number, c: number, d: number) => void;
+  readonly mybotdetection_saveResult: (a: number, b: number) => void;
+  readonly mybotdetection_saveBorrowedResult: (a: number, b: number) => void;
+  readonly mybotdetection_allEvents: (a: number, b: number) => void;
+  readonly mybotdetection_events: (a: number, b: number, c: number, d: number) => void;
+  readonly mybotdetection_num_events: (a: number) => number;
+  readonly mybotdetection_results: (a: number, b: number) => void;
+  readonly mybotdetection_isBot: (a: number) => number;
+  readonly botdetectionoutput_text: (a: number, b: number) => void;
   readonly coordinate_new: (a: number, b: number) => number;
-  readonly __wbg_set_robodetectionoutput_timestamp: (a: number, b: number) => void;
-  readonly __wbg_get_robodetectionoutput_timestamp: (a: number) => number;
+  readonly __wbg_set_event_timestamp: (a: number, b: number) => void;
+  readonly __wbg_get_event_timestamp: (a: number) => number;
   readonly __wbindgen_export_0: (a: number, b: number) => number;
   readonly __wbindgen_add_to_stack_pointer: (a: number) => number;
   readonly __wbindgen_export_1: (a: number, b: number, c: number) => void;

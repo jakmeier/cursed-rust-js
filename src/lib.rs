@@ -44,7 +44,6 @@ pub struct Coordinate {
 #[derive(Debug, Clone)]
 #[wasm_bindgen]
 pub struct BotDetectionOutput {
-    pub jitter: f32,
     #[wasm_bindgen(js_name = humanScore)]
     pub human_score: f32,
     pub timestamp: Timestamp,
@@ -117,13 +116,11 @@ impl MyBotDetection {
 
     #[wasm_bindgen(js_name = isBot)]
     pub fn is_bot(&self) -> BotDetectionOutput {
-        let jitter = self.jitter();
-        let human_score = (jitter / 1000.0).min(1.0);
+        let human_score = self.jitter();
         let result_text = if human_score < 0.5 { "Robot" } else { "Human" }.to_owned();
         let timestamp = self.events.last().map(|e| e.timestamp).unwrap_or_default();
         BotDetectionOutput {
             timestamp,
-            jitter,
             human_score,
             result_text,
         }

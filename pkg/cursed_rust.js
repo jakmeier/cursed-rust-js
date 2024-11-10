@@ -85,6 +85,78 @@ function getArrayJsValueFromWasm0(ptr, len) {
     return result;
 }
 
+const BotDetectionOutputFinalization = (typeof FinalizationRegistry === 'undefined')
+    ? { register: () => {}, unregister: () => {} }
+    : new FinalizationRegistry(ptr => wasm.__wbg_botdetectionoutput_free(ptr >>> 0, 1));
+
+export class BotDetectionOutput {
+
+    static __wrap(ptr) {
+        ptr = ptr >>> 0;
+        const obj = Object.create(BotDetectionOutput.prototype);
+        obj.__wbg_ptr = ptr;
+        BotDetectionOutputFinalization.register(obj, obj.__wbg_ptr, obj);
+        return obj;
+    }
+
+    __destroy_into_raw() {
+        const ptr = this.__wbg_ptr;
+        this.__wbg_ptr = 0;
+        BotDetectionOutputFinalization.unregister(this);
+        return ptr;
+    }
+
+    free() {
+        const ptr = this.__destroy_into_raw();
+        wasm.__wbg_botdetectionoutput_free(ptr, 0);
+    }
+    /**
+     * @returns {number}
+     */
+    get humanScore() {
+        const ret = wasm.__wbg_get_botdetectionoutput_humanScore(this.__wbg_ptr);
+        return ret;
+    }
+    /**
+     * @param {number} arg0
+     */
+    set humanScore(arg0) {
+        wasm.__wbg_set_botdetectionoutput_humanScore(this.__wbg_ptr, arg0);
+    }
+    /**
+     * @returns {number}
+     */
+    get timestamp() {
+        const ret = wasm.__wbg_get_botdetectionoutput_timestamp(this.__wbg_ptr);
+        return ret;
+    }
+    /**
+     * @param {number} arg0
+     */
+    set timestamp(arg0) {
+        wasm.__wbg_set_botdetectionoutput_timestamp(this.__wbg_ptr, arg0);
+    }
+    /**
+     * @returns {string}
+     */
+    text() {
+        let deferred1_0;
+        let deferred1_1;
+        try {
+            const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
+            wasm.botdetectionoutput_text(retptr, this.__wbg_ptr);
+            var r0 = getDataViewMemory0().getInt32(retptr + 4 * 0, true);
+            var r1 = getDataViewMemory0().getInt32(retptr + 4 * 1, true);
+            deferred1_0 = r0;
+            deferred1_1 = r1;
+            return getStringFromWasm0(r0, r1);
+        } finally {
+            wasm.__wbindgen_add_to_stack_pointer(16);
+            wasm.__wbindgen_export_1(deferred1_0, deferred1_1, 1);
+        }
+    }
+}
+
 const CoordinateFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
     : new FinalizationRegistry(ptr => wasm.__wbg_coordinate_free(ptr >>> 0, 1));
@@ -184,14 +256,14 @@ export class Event {
      * @returns {number}
      */
     get timestamp() {
-        const ret = wasm.__wbg_get_event_timestamp(this.__wbg_ptr);
+        const ret = wasm.__wbg_get_botdetectionoutput_timestamp(this.__wbg_ptr);
         return ret;
     }
     /**
      * @param {number} arg0
      */
     set timestamp(arg0) {
-        wasm.__wbg_set_event_timestamp(this.__wbg_ptr, arg0);
+        wasm.__wbg_set_botdetectionoutput_timestamp(this.__wbg_ptr, arg0);
     }
     /**
      * @returns {Coordinate}
@@ -212,7 +284,7 @@ export class Event {
 
 const MyBotDetectionFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
-    : new FinalizationRegistry(ptr => wasm.__wbg_myrobodetection_free(ptr >>> 0, 1));
+    : new FinalizationRegistry(ptr => wasm.__wbg_mybotdetection_free(ptr >>> 0, 1));
 
 export class MyBotDetection {
 
@@ -233,10 +305,10 @@ export class MyBotDetection {
 
     free() {
         const ptr = this.__destroy_into_raw();
-        wasm.__wbg_myrobodetection_free(ptr, 0);
+        wasm.__wbg_mybotdetection_free(ptr, 0);
     }
     constructor() {
-        const ret = wasm.myrobodetection_new();
+        const ret = wasm.mybotdetection_new();
         this.__wbg_ptr = ret >>> 0;
         MyBotDetectionFinalization.register(this, this.__wbg_ptr, this);
         return this;
@@ -248,7 +320,7 @@ export class MyBotDetection {
     static fromEvents(events) {
         const ptr0 = passArrayJsValueToWasm0(events, wasm.__wbindgen_export_0);
         const len0 = WASM_VECTOR_LEN;
-        const ret = wasm.myrobodetection_fromEvents(ptr0, len0);
+        const ret = wasm.mybotdetection_fromEvents(ptr0, len0);
         return MyBotDetection.__wrap(ret);
     }
     /**
@@ -258,7 +330,7 @@ export class MyBotDetection {
     addEvent(timestamp, event) {
         try {
             const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-            wasm.myrobodetection_addEvent(retptr, this.__wbg_ptr, timestamp, addHeapObject(event));
+            wasm.mybotdetection_addEvent(retptr, this.__wbg_ptr, timestamp, addHeapObject(event));
             var r0 = getDataViewMemory0().getInt32(retptr + 4 * 0, true);
             var r1 = getDataViewMemory0().getInt32(retptr + 4 * 1, true);
             if (r1) {
@@ -274,14 +346,14 @@ export class MyBotDetection {
     saveResult(result) {
         _assertClass(result, BotDetectionOutput);
         var ptr0 = result.__destroy_into_raw();
-        wasm.myrobodetection_saveResult(this.__wbg_ptr, ptr0);
+        wasm.mybotdetection_saveResult(this.__wbg_ptr, ptr0);
     }
     /**
      * @param {BotDetectionOutput} result
      */
     saveBorrowedResult(result) {
         _assertClass(result, BotDetectionOutput);
-        wasm.myrobodetection_saveBorrowedResult(this.__wbg_ptr, result.__wbg_ptr);
+        wasm.mybotdetection_saveBorrowedResult(this.__wbg_ptr, result.__wbg_ptr);
     }
     /**
      * @returns {(Event)[]}
@@ -290,7 +362,7 @@ export class MyBotDetection {
         try {
             const ptr = this.__destroy_into_raw();
             const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-            wasm.myrobodetection_allEvents(retptr, ptr);
+            wasm.mybotdetection_allEvents(retptr, ptr);
             var r0 = getDataViewMemory0().getInt32(retptr + 4 * 0, true);
             var r1 = getDataViewMemory0().getInt32(retptr + 4 * 1, true);
             var v1 = getArrayJsValueFromWasm0(r0, r1).slice();
@@ -308,7 +380,7 @@ export class MyBotDetection {
     events(start, end) {
         try {
             const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-            wasm.myrobodetection_events(retptr, this.__wbg_ptr, start, end);
+            wasm.mybotdetection_events(retptr, this.__wbg_ptr, start, end);
             var r0 = getDataViewMemory0().getInt32(retptr + 4 * 0, true);
             var r1 = getDataViewMemory0().getInt32(retptr + 4 * 1, true);
             var v1 = getArrayJsValueFromWasm0(r0, r1).slice();
@@ -322,7 +394,7 @@ export class MyBotDetection {
      * @returns {number}
      */
     num_events() {
-        const ret = wasm.myrobodetection_num_events(this.__wbg_ptr);
+        const ret = wasm.mybotdetection_num_events(this.__wbg_ptr);
         return ret >>> 0;
     }
     /**
@@ -331,7 +403,7 @@ export class MyBotDetection {
     get results() {
         try {
             const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-            wasm.myrobodetection_results(retptr, this.__wbg_ptr);
+            wasm.mybotdetection_results(retptr, this.__wbg_ptr);
             var r0 = getDataViewMemory0().getInt32(retptr + 4 * 0, true);
             var r1 = getDataViewMemory0().getInt32(retptr + 4 * 1, true);
             var v1 = getArrayJsValueFromWasm0(r0, r1).slice();
@@ -345,93 +417,8 @@ export class MyBotDetection {
      * @returns {BotDetectionOutput}
      */
     isBot() {
-        const ret = wasm.myrobodetection_isBot(this.__wbg_ptr);
+        const ret = wasm.mybotdetection_isBot(this.__wbg_ptr);
         return BotDetectionOutput.__wrap(ret);
-    }
-}
-
-const BotDetectionOutputFinalization = (typeof FinalizationRegistry === 'undefined')
-    ? { register: () => {}, unregister: () => {} }
-    : new FinalizationRegistry(ptr => wasm.__wbg_robodetectionoutput_free(ptr >>> 0, 1));
-
-export class BotDetectionOutput {
-
-    static __wrap(ptr) {
-        ptr = ptr >>> 0;
-        const obj = Object.create(BotDetectionOutput.prototype);
-        obj.__wbg_ptr = ptr;
-        BotDetectionOutputFinalization.register(obj, obj.__wbg_ptr, obj);
-        return obj;
-    }
-
-    __destroy_into_raw() {
-        const ptr = this.__wbg_ptr;
-        this.__wbg_ptr = 0;
-        BotDetectionOutputFinalization.unregister(this);
-        return ptr;
-    }
-
-    free() {
-        const ptr = this.__destroy_into_raw();
-        wasm.__wbg_robodetectionoutput_free(ptr, 0);
-    }
-    /**
-     * @returns {number}
-     */
-    get jitter() {
-        const ret = wasm.__wbg_get_robodetectionoutput_jitter(this.__wbg_ptr);
-        return ret;
-    }
-    /**
-     * @param {number} arg0
-     */
-    set jitter(arg0) {
-        wasm.__wbg_set_robodetectionoutput_jitter(this.__wbg_ptr, arg0);
-    }
-    /**
-     * @returns {number}
-     */
-    get humanScore() {
-        const ret = wasm.__wbg_get_robodetectionoutput_humanScore(this.__wbg_ptr);
-        return ret;
-    }
-    /**
-     * @param {number} arg0
-     */
-    set humanScore(arg0) {
-        wasm.__wbg_set_robodetectionoutput_humanScore(this.__wbg_ptr, arg0);
-    }
-    /**
-     * @returns {number}
-     */
-    get timestamp() {
-        const ret = wasm.__wbg_get_event_timestamp(this.__wbg_ptr);
-        return ret;
-    }
-    /**
-     * @param {number} arg0
-     */
-    set timestamp(arg0) {
-        wasm.__wbg_set_event_timestamp(this.__wbg_ptr, arg0);
-    }
-    /**
-     * @returns {string}
-     */
-    text() {
-        let deferred1_0;
-        let deferred1_1;
-        try {
-            const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-            wasm.robodetectionoutput_text(retptr, this.__wbg_ptr);
-            var r0 = getDataViewMemory0().getInt32(retptr + 4 * 0, true);
-            var r1 = getDataViewMemory0().getInt32(retptr + 4 * 1, true);
-            deferred1_0 = r0;
-            deferred1_1 = r1;
-            return getStringFromWasm0(r0, r1);
-        } finally {
-            wasm.__wbindgen_add_to_stack_pointer(16);
-            wasm.__wbindgen_export_1(deferred1_0, deferred1_1, 1);
-        }
     }
 }
 
@@ -473,7 +460,7 @@ function __wbg_get_imports() {
         const ret = Event.__wrap(arg0);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbg_robodetectionoutput_new = function(arg0) {
+    imports.wbg.__wbg_botdetectionoutput_new = function(arg0) {
         const ret = BotDetectionOutput.__wrap(arg0);
         return addHeapObject(ret);
     };

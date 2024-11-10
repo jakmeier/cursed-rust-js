@@ -1,6 +1,8 @@
 use crate::MyBotDetection;
 
 impl MyBotDetection {
+    /// Returns a number between 0.0 and 1.0, with higher number meaning there
+    /// was more jitter.
     pub(crate) fn jitter(&self) -> f32 {
         // just for demonstration, compute the variance of 2D differences
         // between two events
@@ -28,8 +30,9 @@ impl MyBotDetection {
         let variance: f32 =
             diffs.iter().map(|&d| (d - mean).powi(2)).sum::<f32>() / diffs.len() as f32;
 
-        variance
-
         // <ChatGPT/>
+
+        // normalize
+        (variance / 1000.0).min(1.0)
     }
 }
