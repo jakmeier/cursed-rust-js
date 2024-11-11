@@ -10,14 +10,15 @@ mod web_utils;
 
 // BUG 3
 // Silent overflow
-// pub type Timestamp = u32;
+pub type Timestamp = u32;
 
 // BUG 3.1
 // can't convert 1731071638989 to BigInt
 // pub type Timestamp = u64;
 
+// BUG 3 solution
 // JS number only converts cleanly to f64
-pub type Timestamp = f64;
+// pub type Timestamp = f64;
 
 #[wasm_bindgen]
 pub struct MyBotDetection {
@@ -96,14 +97,10 @@ impl MyBotDetection {
         self.saved_results.push(result.clone());
     }
 
-    #[wasm_bindgen(js_name = allEvents)]
-    pub fn all_events(self) -> Vec<Event> {
-        self.events
-    }
-
-    pub fn events(&self, start: usize, end: usize) -> Vec<Event> {
-        self.events[start..end].to_vec()
-    }
+    // BUG 1 part of solution
+    // pub fn events(&self, start: usize, end: usize) -> Vec<Event> {
+    //     self.events[start..end].to_vec()
+    // }
 
     pub fn num_events(&self) -> usize {
         self.events.len()

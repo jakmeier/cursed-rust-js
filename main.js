@@ -23,6 +23,10 @@ function update() {
         humanScoreElement.innerText = `Human Score: ${latestResult.humanScore.toFixed(3)}`;
         botResultElement.innerText = latestResult.text();
     }
+
+    counterElement.innerText = `Events generated: ${allEvents.length}`;
+
+    /* PART 2
     previousResultsElement.innerHTML = "";
     let results = detection.results;
     for (let i = 0; i < results.length; i++) {
@@ -36,7 +40,7 @@ function update() {
         firstDiv.classList.add("small");
         secondDiv.classList.add("small");
 
-        //  set content
+        // set content
         secondDiv.innerText = results[i].text();
         firstDiv.innerText = (new Date(results[i].timestamp)).toUTCString();
 
@@ -44,24 +48,28 @@ function update() {
         row.appendChild(secondDiv);
         previousResultsElement.appendChild(row);
     }
+    */
 
-    counterElement.innerText = `Events generated: ${allEvents.length}`;
 
-    requestAnimationFrame(showErr(update));
+    requestAnimationFrame(update);
+    // requestAnimationFrame(showErr(update));
 }
 requestAnimationFrame(showErr(update));
 
 /* On every mouse movement, record another event. */
 window.onmousemove = (event) => {
     detection.addEvent(Date.now(), event);
-    /* BUG 1, forgot to update events, just an oopsie */
-    /* BUG 1.1, Error: null pointer passed to rust */
-    // allEvents = detection.allEvents();
+    /* BUG 1, allEvents is undefined */
+    /* BUG 1.1, events stuck at length 2, no error shows that events is not a function */
+    allEvents = detection.events;
+
     // BUG 1.2, nothing happens, no error shows that events was called without parameters.
     // allEvents = detection.events();
     // BUG 1.3, same problem, function used as field gives no error
     // allEvents = detection.events(0, detection.num_events - 1);
-    allEvents = detection.events(0, detection.num_events() - 1);
+
+    // solution
+    // allEvents = detection.events(0, detection.num_events() - 1);
 };
 
 
@@ -72,8 +80,8 @@ function amIBot() {
     /* BUG 2
      * Error: null pointer passed to rust
      */
-    // displayedResult = detection.isBot();
-    // detection.saveResult(displayedResult);
+    displayedResult = detection.isBot();
+    detection.saveResult(displayedResult);
 
     /* Debugging? */
     // Error: recursive use of an object detected which would lead to unsafe aliasing in rust
@@ -81,7 +89,8 @@ function amIBot() {
     // detection.saveResult(result);
     // detection.saveResult(result);
 
-    detection.saveBorrowedResult(latestResult);
+    //solution
+    // detection.saveBorrowedResult(latestResult);
 }
 
 function printWindowedJitter() {
@@ -111,8 +120,8 @@ function printWindowedJitter() {
     // }
 
     const tmp = MyBotDetection.fromEvents(window);
-    console.log("Jitter of last", windowSize, "events was", tmp.isBot().jitter);
-    debugInfo.innerText = tmp.isBot().jitter.toFixed(3);
+    console.log("Human score of last", windowSize, "events was", tmp.isBot().humanScore);
+    debugInfo.innerText = tmp.isBot().humanScore.toFixed(3);
 }
 
 function setXtoZero() {
@@ -121,18 +130,19 @@ function setXtoZero() {
          * Copies the coordinates into a new Rc<WasmRefCell> and sets the value of
          * that copy, before dropping it again, leaving the original value unchanged.
          */
-        // allEvents[i].coordinate.x = 0;
+        allEvents[i].coordinate.x = 0;
 
+        // solution
         allEvents[i].coordinate = new Coordinate(0, allEvents[i].coordinate.y);
-
-
     }
     printWindowedJitter();
 }
 
 document.getElementById('button1').onclick = showErr(amIBot);
+/* PART 2
 document.getElementById('button2').onclick = showErr(printWindowedJitter);
 document.getElementById('button3').onclick = showErr(setXtoZero);
+*/
 
 function showErr(func) {
     return () => {

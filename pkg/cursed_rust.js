@@ -128,7 +128,7 @@ export class BotDetectionOutput {
      */
     get timestamp() {
         const ret = wasm.__wbg_get_botdetectionoutput_timestamp(this.__wbg_ptr);
-        return ret;
+        return ret >>> 0;
     }
     /**
      * @param {number} arg0
@@ -226,14 +226,6 @@ const EventFinalization = (typeof FinalizationRegistry === 'undefined')
 
 export class Event {
 
-    static __wrap(ptr) {
-        ptr = ptr >>> 0;
-        const obj = Object.create(Event.prototype);
-        obj.__wbg_ptr = ptr;
-        EventFinalization.register(obj, obj.__wbg_ptr, obj);
-        return obj;
-    }
-
     static __unwrap(jsValue) {
         if (!(jsValue instanceof Event)) {
             return 0;
@@ -256,14 +248,14 @@ export class Event {
      * @returns {number}
      */
     get timestamp() {
-        const ret = wasm.__wbg_get_botdetectionoutput_timestamp(this.__wbg_ptr);
-        return ret;
+        const ret = wasm.__wbg_get_event_timestamp(this.__wbg_ptr);
+        return ret >>> 0;
     }
     /**
      * @param {number} arg0
      */
     set timestamp(arg0) {
-        wasm.__wbg_set_botdetectionoutput_timestamp(this.__wbg_ptr, arg0);
+        wasm.__wbg_set_event_timestamp(this.__wbg_ptr, arg0);
     }
     /**
      * @returns {Coordinate}
@@ -356,41 +348,6 @@ export class MyBotDetection {
         wasm.mybotdetection_saveBorrowedResult(this.__wbg_ptr, result.__wbg_ptr);
     }
     /**
-     * @returns {(Event)[]}
-     */
-    allEvents() {
-        try {
-            const ptr = this.__destroy_into_raw();
-            const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-            wasm.mybotdetection_allEvents(retptr, ptr);
-            var r0 = getDataViewMemory0().getInt32(retptr + 4 * 0, true);
-            var r1 = getDataViewMemory0().getInt32(retptr + 4 * 1, true);
-            var v1 = getArrayJsValueFromWasm0(r0, r1).slice();
-            wasm.__wbindgen_export_1(r0, r1 * 4, 4);
-            return v1;
-        } finally {
-            wasm.__wbindgen_add_to_stack_pointer(16);
-        }
-    }
-    /**
-     * @param {number} start
-     * @param {number} end
-     * @returns {(Event)[]}
-     */
-    events(start, end) {
-        try {
-            const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-            wasm.mybotdetection_events(retptr, this.__wbg_ptr, start, end);
-            var r0 = getDataViewMemory0().getInt32(retptr + 4 * 0, true);
-            var r1 = getDataViewMemory0().getInt32(retptr + 4 * 1, true);
-            var v1 = getArrayJsValueFromWasm0(r0, r1).slice();
-            wasm.__wbindgen_export_1(r0, r1 * 4, 4);
-            return v1;
-        } finally {
-            wasm.__wbindgen_add_to_stack_pointer(16);
-        }
-    }
-    /**
      * @returns {number}
      */
     num_events() {
@@ -456,10 +413,6 @@ async function __wbg_load(module, imports) {
 function __wbg_get_imports() {
     const imports = {};
     imports.wbg = {};
-    imports.wbg.__wbg_event_new = function(arg0) {
-        const ret = Event.__wrap(arg0);
-        return addHeapObject(ret);
-    };
     imports.wbg.__wbg_botdetectionoutput_new = function(arg0) {
         const ret = BotDetectionOutput.__wrap(arg0);
         return addHeapObject(ret);

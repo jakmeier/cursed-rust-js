@@ -46,16 +46,6 @@ export class MyBotDetection {
    */
   saveBorrowedResult(result: BotDetectionOutput): void;
   /**
-   * @returns {(Event)[]}
-   */
-  allEvents(): (Event)[];
-  /**
-   * @param {number} start
-   * @param {number} end
-   * @returns {(Event)[]}
-   */
-  events(start: number, end: number): (Event)[];
-  /**
    * @returns {number}
    */
   num_events(): number;
@@ -72,6 +62,8 @@ export interface InitOutput {
   readonly memory: WebAssembly.Memory;
   readonly __wbg_mybotdetection_free: (a: number, b: number) => void;
   readonly __wbg_event_free: (a: number, b: number) => void;
+  readonly __wbg_get_event_timestamp: (a: number) => number;
+  readonly __wbg_set_event_timestamp: (a: number, b: number) => void;
   readonly __wbg_get_event_coordinate: (a: number) => number;
   readonly __wbg_set_event_coordinate: (a: number, b: number) => void;
   readonly __wbg_coordinate_free: (a: number, b: number) => void;
@@ -89,15 +81,11 @@ export interface InitOutput {
   readonly mybotdetection_addEvent: (a: number, b: number, c: number, d: number) => void;
   readonly mybotdetection_saveResult: (a: number, b: number) => void;
   readonly mybotdetection_saveBorrowedResult: (a: number, b: number) => void;
-  readonly mybotdetection_allEvents: (a: number, b: number) => void;
-  readonly mybotdetection_events: (a: number, b: number, c: number, d: number) => void;
   readonly mybotdetection_num_events: (a: number) => number;
   readonly mybotdetection_results: (a: number, b: number) => void;
   readonly mybotdetection_isBot: (a: number) => number;
   readonly botdetectionoutput_text: (a: number, b: number) => void;
   readonly coordinate_new: (a: number, b: number) => number;
-  readonly __wbg_set_event_timestamp: (a: number, b: number) => void;
-  readonly __wbg_get_event_timestamp: (a: number) => number;
   readonly __wbindgen_export_0: (a: number, b: number) => number;
   readonly __wbindgen_add_to_stack_pointer: (a: number) => number;
   readonly __wbindgen_export_1: (a: number, b: number, c: number) => void;
