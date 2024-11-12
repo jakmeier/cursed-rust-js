@@ -42,10 +42,6 @@ export class MyBotDetection {
    */
   saveResult(result: BotDetectionOutput): void;
   /**
-   * @param {BotDetectionOutput} result
-   */
-  saveBorrowedResult(result: BotDetectionOutput): void;
-  /**
    * @param {number} start
    * @param {number} end
    * @returns {(Event)[]}
@@ -86,7 +82,6 @@ export interface InitOutput {
   readonly mybotdetection_fromEvents: (a: number, b: number) => number;
   readonly mybotdetection_addEvent: (a: number, b: number, c: number, d: number) => void;
   readonly mybotdetection_saveResult: (a: number, b: number) => void;
-  readonly mybotdetection_saveBorrowedResult: (a: number, b: number) => void;
   readonly mybotdetection_events: (a: number, b: number, c: number, d: number) => void;
   readonly mybotdetection_num_events: (a: number) => number;
   readonly mybotdetection_results: (a: number, b: number) => void;

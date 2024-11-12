@@ -349,13 +349,6 @@ export class MyBotDetection {
         wasm.mybotdetection_saveResult(this.__wbg_ptr, ptr0);
     }
     /**
-     * @param {BotDetectionOutput} result
-     */
-    saveBorrowedResult(result) {
-        _assertClass(result, BotDetectionOutput);
-        wasm.mybotdetection_saveBorrowedResult(this.__wbg_ptr, result.__wbg_ptr);
-    }
-    /**
      * @param {number} start
      * @param {number} end
      * @returns {(Event)[]}

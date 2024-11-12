@@ -21,7 +21,6 @@ export function mybotdetection_new(): number;
 export function mybotdetection_fromEvents(a: number, b: number): number;
 export function mybotdetection_addEvent(a: number, b: number, c: number, d: number): void;
 export function mybotdetection_saveResult(a: number, b: number): void;
-export function mybotdetection_saveBorrowedResult(a: number, b: number): void;
 export function mybotdetection_events(a: number, b: number, c: number, d: number): void;
 export function mybotdetection_num_events(a: number): number;
 export function mybotdetection_results(a: number, b: number): void;
