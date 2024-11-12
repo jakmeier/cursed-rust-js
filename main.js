@@ -26,7 +26,7 @@ function update() {
 
     counterElement.innerText = `Events generated: ${allEvents.length}`;
 
-    /* PART 2
+    /* PART 2 */
     previousResultsElement.innerHTML = "";
     let results = detection.results;
     for (let i = 0; i < results.length; i++) {
@@ -48,10 +48,11 @@ function update() {
         row.appendChild(secondDiv);
         previousResultsElement.appendChild(row);
     }
-    */
+    /**/
 
 
     requestAnimationFrame(update);
+    // For a live demo
     // requestAnimationFrame(showErr(update));
 }
 requestAnimationFrame(showErr(update));
@@ -61,7 +62,8 @@ window.onmousemove = (event) => {
     detection.addEvent(Date.now(), event);
     /* BUG 1, allEvents is undefined */
     /* BUG 1.1, events stuck at length 2, no error shows that events is not a function */
-    allEvents = detection.events;
+    // allEvents = detection.events();
+    // console.log("allEvents is", allEvents);
 
     // BUG 1.2, nothing happens, no error shows that events was called without parameters.
     // allEvents = detection.events();
@@ -69,7 +71,7 @@ window.onmousemove = (event) => {
     // allEvents = detection.events(0, detection.num_events - 1);
 
     // solution
-    // allEvents = detection.events(0, detection.num_events() - 1);
+    allEvents = detection.events(0, detection.num_events());
 };
 
 
@@ -80,24 +82,23 @@ function amIBot() {
     /* BUG 2
      * Error: null pointer passed to rust
      */
-    displayedResult = detection.isBot();
-    detection.saveResult(displayedResult);
+    // console.log("latestResult before is", latestResult);
+    // detection.saveResult(latestResult);
+    // console.log("latestResult after is", latestResult);
 
     /* Debugging? */
     // Error: recursive use of an object detected which would lead to unsafe aliasing in rust
-    // let result = detection.isBot();
-    // detection.saveResult(result);
-    // detection.saveResult(result);
+    // detection.saveResult(latestResult);
+    // detection.saveResult(latestResult);
 
     //solution
-    // detection.saveBorrowedResult(latestResult);
+    detection.saveBorrowedResult(latestResult);
 }
 
 function printWindowedJitter() {
     /* BUG 4, on second click
      * Error: array contains a value of the wrong type
      */
-    // TODO: Find a clean solution to avoid BUG 4
 
     let windowSize = 100;
     let window;
@@ -122,6 +123,9 @@ function printWindowedJitter() {
     const tmp = MyBotDetection.fromEvents(window);
     console.log("Human score of last", windowSize, "events was", tmp.isBot().humanScore);
     debugInfo.innerText = tmp.isBot().humanScore.toFixed(3);
+
+    // solution BUG 4, restore allEvents
+    allEvents = detection.events(0, detection.num_events());
 }
 
 function setXtoZero() {
@@ -130,7 +134,9 @@ function setXtoZero() {
          * Copies the coordinates into a new Rc<WasmRefCell> and sets the value of
          * that copy, before dropping it again, leaving the original value unchanged.
          */
-        allEvents[i].coordinate.x = 0;
+        // console.log("x was", allEvents[i].coordinate.x);
+        // allEvents[i].coordinate.x = 0;
+        // console.log("x should be 0 now but actually is", allEvents[i].coordinate.x);
 
         // solution
         allEvents[i].coordinate = new Coordinate(0, allEvents[i].coordinate.y);
@@ -138,8 +144,11 @@ function setXtoZero() {
     printWindowedJitter();
 }
 
+document.getElementById('button1').onclick = amIBot;
+document.getElementById('button3').onclick = setXtoZero;
+document.getElementById('button2').onclick = printWindowedJitter;
+/* For a live demo
 document.getElementById('button1').onclick = showErr(amIBot);
-/* PART 2
 document.getElementById('button2').onclick = showErr(printWindowedJitter);
 document.getElementById('button3').onclick = showErr(setXtoZero);
 */
