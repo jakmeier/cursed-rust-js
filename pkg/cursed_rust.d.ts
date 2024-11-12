@@ -68,6 +68,8 @@ export interface InitOutput {
   readonly memory: WebAssembly.Memory;
   readonly __wbg_mybotdetection_free: (a: number, b: number) => void;
   readonly __wbg_event_free: (a: number, b: number) => void;
+  readonly __wbg_get_event_timestamp: (a: number) => number;
+  readonly __wbg_set_event_timestamp: (a: number, b: number) => void;
   readonly __wbg_get_event_coordinate: (a: number) => number;
   readonly __wbg_set_event_coordinate: (a: number, b: number) => void;
   readonly __wbg_coordinate_free: (a: number, b: number) => void;
@@ -91,8 +93,6 @@ export interface InitOutput {
   readonly mybotdetection_isBot: (a: number) => number;
   readonly botdetectionoutput_text: (a: number, b: number) => void;
   readonly coordinate_new: (a: number, b: number) => number;
-  readonly __wbg_set_event_timestamp: (a: number, b: number) => void;
-  readonly __wbg_get_event_timestamp: (a: number) => number;
   readonly __wbindgen_export_0: (a: number, b: number) => number;
   readonly __wbindgen_add_to_stack_pointer: (a: number) => number;
   readonly __wbindgen_export_1: (a: number, b: number, c: number) => void;

@@ -3,6 +3,8 @@
 export const memory: WebAssembly.Memory;
 export function __wbg_mybotdetection_free(a: number, b: number): void;
 export function __wbg_event_free(a: number, b: number): void;
+export function __wbg_get_event_timestamp(a: number): number;
+export function __wbg_set_event_timestamp(a: number, b: number): void;
 export function __wbg_get_event_coordinate(a: number): number;
 export function __wbg_set_event_coordinate(a: number, b: number): void;
 export function __wbg_coordinate_free(a: number, b: number): void;
@@ -26,8 +28,6 @@ export function mybotdetection_results(a: number, b: number): void;
 export function mybotdetection_isBot(a: number): number;
 export function botdetectionoutput_text(a: number, b: number): void;
 export function coordinate_new(a: number, b: number): number;
-export function __wbg_set_event_timestamp(a: number, b: number): void;
-export function __wbg_get_event_timestamp(a: number): number;
 export function __wbindgen_export_0(a: number, b: number): number;
 export function __wbindgen_add_to_stack_pointer(a: number): number;
 export function __wbindgen_export_1(a: number, b: number, c: number): void;

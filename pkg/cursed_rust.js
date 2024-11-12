@@ -128,7 +128,7 @@ export class BotDetectionOutput {
      */
     get timestamp() {
         const ret = wasm.__wbg_get_botdetectionoutput_timestamp(this.__wbg_ptr);
-        return ret;
+        return ret >>> 0;
     }
     /**
      * @param {number} arg0
@@ -256,14 +256,14 @@ export class Event {
      * @returns {number}
      */
     get timestamp() {
-        const ret = wasm.__wbg_get_botdetectionoutput_timestamp(this.__wbg_ptr);
-        return ret;
+        const ret = wasm.__wbg_get_event_timestamp(this.__wbg_ptr);
+        return ret >>> 0;
     }
     /**
      * @param {number} arg0
      */
     set timestamp(arg0) {
-        wasm.__wbg_set_botdetectionoutput_timestamp(this.__wbg_ptr, arg0);
+        wasm.__wbg_set_event_timestamp(this.__wbg_ptr, arg0);
     }
     /**
      * @returns {Coordinate}
@@ -439,12 +439,12 @@ async function __wbg_load(module, imports) {
 function __wbg_get_imports() {
     const imports = {};
     imports.wbg = {};
-    imports.wbg.__wbg_event_new = function(arg0) {
-        const ret = Event.__wrap(arg0);
-        return addHeapObject(ret);
-    };
     imports.wbg.__wbg_botdetectionoutput_new = function(arg0) {
         const ret = BotDetectionOutput.__wrap(arg0);
+        return addHeapObject(ret);
+    };
+    imports.wbg.__wbg_event_new = function(arg0) {
+        const ret = Event.__wrap(arg0);
         return addHeapObject(ret);
     };
     imports.wbg.__wbindgen_object_drop_ref = function(arg0) {

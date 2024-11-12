@@ -62,16 +62,14 @@ window.onmousemove = (event) => {
     detection.addEvent(Date.now(), event);
     /* BUG 1, allEvents is undefined */
     /* BUG 1.1, events stuck at length 2, no error shows that events is not a function */
-    // allEvents = detection.events();
+    allEvents = detection.events;
     // console.log("allEvents is", allEvents);
 
     // BUG 1.2, nothing happens, no error shows that events was called without parameters.
     // allEvents = detection.events();
-    // BUG 1.3, same problem, function used as field gives no error
-    // allEvents = detection.events(0, detection.num_events - 1);
 
     // solution
-    allEvents = detection.events(0, detection.num_events());
+    // allEvents = detection.events(0, detection.num_events());
 };
 
 
@@ -83,7 +81,7 @@ function amIBot() {
      * Error: null pointer passed to rust
      */
     // console.log("latestResult before is", latestResult);
-    // detection.saveResult(latestResult);
+    detection.saveResult(latestResult);
     // console.log("latestResult after is", latestResult);
 
     /* Debugging? */
@@ -91,8 +89,8 @@ function amIBot() {
     // detection.saveResult(latestResult);
     // detection.saveResult(latestResult);
 
-    //solution
-    detection.saveBorrowedResult(latestResult);
+    // solution
+    // detection.saveBorrowedResult(latestResult);
 }
 
 function printWindowedJitter() {
@@ -125,7 +123,7 @@ function printWindowedJitter() {
     debugInfo.innerText = tmp.isBot().humanScore.toFixed(3);
 
     // solution BUG 4, restore allEvents
-    allEvents = detection.events(0, detection.num_events());
+    // allEvents = detection.events(0, detection.num_events());
 }
 
 function setXtoZero() {
@@ -135,11 +133,11 @@ function setXtoZero() {
          * that copy, before dropping it again, leaving the original value unchanged.
          */
         // console.log("x was", allEvents[i].coordinate.x);
-        // allEvents[i].coordinate.x = 0;
+        allEvents[i].coordinate.x = 0;
         // console.log("x should be 0 now but actually is", allEvents[i].coordinate.x);
 
         // solution
-        allEvents[i].coordinate = new Coordinate(0, allEvents[i].coordinate.y);
+        // allEvents[i].coordinate = new Coordinate(0, allEvents[i].coordinate.y);
     }
     printWindowedJitter();
 }

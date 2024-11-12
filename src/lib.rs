@@ -10,7 +10,7 @@ mod web_utils;
 
 // BUG 3
 // Silent overflow
-// pub type Timestamp = u32;
+pub type Timestamp = u32;
 
 // BUG 3.1
 // can't convert 1731071638989 to BigInt
@@ -18,7 +18,7 @@ mod web_utils;
 
 // BUG 3 solution
 // JS number only converts cleanly to f64
-pub type Timestamp = f64;
+// pub type Timestamp = f64;
 
 #[wasm_bindgen]
 pub struct MyBotDetection {
